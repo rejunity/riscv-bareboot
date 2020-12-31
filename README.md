@@ -1,34 +1,43 @@
 # RISC-V Bare Metal Tiny OS
 Coding RISC-V bare metal boot loader and exokernel OS for education purposes.
 
-## Goal
-Learn how to build minimal OS for RISC-V architecture:
+## The Goal
+The goal of this project is to learn how to build minimal OS for RISC-V architecture.
 - Source code should be small and self-explanatory. Aim at 2-3 files.
 - No external dependencies except the RISC-V GNU toolchain.
 - Load and execture ELF binary in User Space. Trap invalid operations without crashing the whole machine.
 - Small RAM memory footprint. Aim below 16KB.
 - Provide basic syscalls.
-- Run on real hardware such as SiFive E board.
+- Run on real hardware such as SiFive E development board.
 - Run small user space "hello world" program. Playable "Tetris" as a stretch goal!
+
+## Build & Run
+### Toolchain
+### QEMU
 
 ## Understanding RISC-V
 To start building the bare metal OS, we need an absolute minimal bootable sample code for RISC-V system. The very first stop would be pure RISC-V assembly example that does exactly that: https://github.com/noteed/riscv-hello-asm. Boots and prints "Hello".
 
 RISC-V Instruction Set Architecture (ISA) is very elegant and easy to learn. One could turbocharge into RISC-V assembly with a single double-sided page https://github.com/jameslzhu/riscv-card/blob/master/riscv-card.pdf and RISC-V Assembly Programmer's Manual https://github.com/riscv/riscv-asm-manual/blob/master/riscv-asm.md
 
+As of writing there are several development boards and virtual environments that sport RISC-V core. QEMU emulates at least two physical devices `SiFive E` and `SiFive U`.
+
+## Booting RISC-V and Priveleged Execution
+
 Reset vector, ROM, RAM addresses.
 
 M/S/U modes
 
-Flattened Device Tree (FDT)
-
 Physical Memory Protection (PMP)
+
+## Devices
+Flattened Device Tree (FDT)
 
 Syscalls
 
 
 ## Steps
-- Second Stage Bootloader. CPU is in M-mode (Machine mode).
+- Second Stage Bootloader. CPU starts in M-mode (Machine mode).
 - Handle hardware threads (HARTs) and setup stack for each.
 - Handle miniam device initialization: UART. Use Flattened Device Tree (FDT) when available.
 - Transition from M-mode (machine) to S-mode (supervisor).
@@ -36,10 +45,6 @@ Syscalls
 - Setup interrupt handlers.
 - Basic syscalls.
 - Load ELF.
-
-## Build & Run
-### Toolchain
-### QEMU
 
 ## Inspiration
 
