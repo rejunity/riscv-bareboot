@@ -20,28 +20,38 @@ To start building the bare metal OS, we need an absolute minimal bootable sample
 
 RISC-V Instruction Set Architecture (ISA) is very elegant and easy to learn. One could turbocharge into RISC-V assembly with a [cheat-sheet card](https://github.com/jameslzhu/riscv-card/blob/master/riscv-card.pdf) and [RISC-V Assembly Programmer's Manual](https://github.com/riscv/riscv-asm-manual/blob/master/riscv-asm.md)
 
-As of writing there are several physical development boards and virtual environments that sport RISC-V cores. QEMU emulates two physical profiles [`sifive_e`](https://github.com/qemu/qemu/blob/master/hw/riscv/sifive_e.c) and [`sifive_u`](https://github.com/qemu/qemu/blob/master/hw/riscv/sifive_u.c) resembling *HiFive1* and *HiFive Unleashed* development boards respectively.
+As of writing there are several physical development boards and virtual environments that sport RISC-V cores. QEMU provides at least two profiles [`sifive_e`](https://github.com/qemu/qemu/blob/master/hw/riscv/sifive_e.c) and [`sifive_u`](https://github.com/qemu/qemu/blob/master/hw/riscv/sifive_u.c) that resemble *HiFive1* and *HiFive Unleashed* development boards respectively.
 
 [HiFive1 revB](https://www.sifive.com/boards/hifive1-rev-b) board is based on FE310-G002 System-on-Chip:
 - Manual: https://sifive.cdn.prismic.io/sifive%2F59a1f74e-d918-41c5-b837-3fe01ba7eaa1_fe310-g002-manual-v19p05.pdf
-- 32-bit E31 RISC‐V core
-- 16KiB RAM (DTIM) + 8KiB instruction cache that can be configured into code scratchpad (ITIM)
-- Privelege modes: Machine, User
-- PMP: 8 regions with a minimum region size of 4 bytes.
+- SDK: https://github.com/sifive/freedom-u-sdk
+- CPU: 32-bit E31 RISC‐V core
+- RAM: 16 KiB 
+- Physical Memory Protection regions: 8
+- Privelege modes: Machine and User.
 
 [HiFive Unleashed](https://www.sifive.com/boards/hifive-unleashed) board is based on FU540-C000 System-on-Chip:
 - Manual: https://static.dev.sifive.com/FU540-C000-v1.0.pdf
-- 4 64-bit U54 RISC‐V cores
-- 8 GB DDR4 RAM
+- SDK: https://github.com/sifive/freedom-e-sdk
+- CPU0: 64-bit E51 RISC‐V core
+- CPU1: 64-bit U54 RISC‐V 4 cores
+- RAM: 8 GB DDR4 + 8KiB available only to E51 core
+- Physical Memory Protection regions: 8
 - Sv39 virtual memory, 38-bit physical address space, and a 32-entry TLB.
-- Privelege modes: Machine, Supervisor, User
-- PMP: 8 regions with a minimum region size of 4 bytes.
-- 1 E51 RISC‐V core
-- 8 KiB DTIM + 8KiB instruction cache that can be configured into code scratchpad (ITIM)
-- Privelege modes: Machine, User
-- PMP: 8 regions with a minimum region size of 4 bytes.
+- Privelege modes: Machine, Supervisor and User
 
-Control and Status Registers (CSR)
+RISC-V hardware can vastly differ both in terms of number of CPU cores, available RAM, supported privelege modes and how it interacts with peripheral devices. Each System-on-Chip solution will have different set of peripherals and the way they map to memory and interrupts.
+
+## Booting RISC-V and Priveleged Execution
+
+
+### M/S/U modes
+   - (U)ser/Application
+   - (S)upervisor
+   - (M)achine
+   - Switching to S and U with FreedomSDK - https://github.com/sifive/example-privilege-level
+
+### Control and Status Registers (CSR)
    Starts with letter describing level of privilege.
 	12-bit encoding space (csr[11:0]) for up to 4,096 CSRs.
    CSRR/CSRW (read/write) pseudoinstructions that are based on CSRRW, CSRRS, CSRRC instructions
@@ -53,15 +63,6 @@ Control and Status Registers (CSR)
    - (Only M) Physical memory protection : pmpcfg0..3, pmpaddr0..15 
    - (Only S) Supervisor adder translation and protection: satp
    - ...
-
-## Booting RISC-V and Priveleged Execution
-
-### M/S/U modes
-   - (U)ser/Application
-   - (S)upervisor
-   - (M)achine
-   - Switching to S and U with FreedomSDK - https://github.com/sifive/example-privilege-level
-
 
 ### Reset vector, ROM, RAM addresses.
    - All harts are set to M mode. mstatus.mie = 0, mstatus.mprv = 0
