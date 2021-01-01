@@ -18,18 +18,28 @@ The goal of this project is to learn how to build minimal OS for RISC-V architec
 ## Understanding RISC-V
 To start building the bare metal OS, we need an absolute minimal bootable sample code for RISC-V system. The very first stop would be pure RISC-V assembly example that does exactly that: https://github.com/noteed/riscv-hello-asm. Boots and prints "Hello".
 
-RISC-V Instruction Set Architecture (ISA) is very elegant and easy to learn. One could turbocharge into RISC-V assembly with a single double-sided page https://github.com/jameslzhu/riscv-card/blob/master/riscv-card.pdf and RISC-V Assembly Programmer's Manual https://github.com/riscv/riscv-asm-manual/blob/master/riscv-asm.md
+RISC-V Instruction Set Architecture (ISA) is very elegant and easy to learn. One could turbocharge into RISC-V assembly with a [cheat-sheet card](https://github.com/jameslzhu/riscv-card/blob/master/riscv-card.pdf) and [RISC-V Assembly Programmer's Manual](https://github.com/riscv/riscv-asm-manual/blob/master/riscv-asm.md)
 
-As of writing there are several development boards and virtual environments that sport RISC-V core. QEMU emulates at least two physical devices `SiFive E` and `SiFive U`.
+As of writing there are several physical development boards and virtual environments that sport RISC-V cores. QEMU emulates two physical profiles [`sifive_e`](https://github.com/qemu/qemu/blob/master/hw/riscv/sifive_e.c) and [`sifive_u`](https://github.com/qemu/qemu/blob/master/hw/riscv/sifive_u.c) resembling *HiFive1* and *HiFive Unleashed* development boards respectively.
 
-SiFive_E revB - sports FE310-G002 SoC
-	Manual: https://sifive.cdn.prismic.io/sifive%2F59a1f74e-d918-41c5-b837-3fe01ba7eaa1_fe310-g002-manual-v19p05.pdf
-	16KB RAM (DTIM) + 8KB instruction cache that can be configured into code scratchpad (ITIM)
-	M/U modes
-	PMP - 8 regions with a minimum region size of 4 bytes. 
+[HiFive1 revB](https://www.sifive.com/boards/hifive1-rev-b) board is based on FE310-G002 System-on-Chip:
+- Manual: https://sifive.cdn.prismic.io/sifive%2F59a1f74e-d918-41c5-b837-3fe01ba7eaa1_fe310-g002-manual-v19p05.pdf
+- 32-bit E31 RISC‐V core
+- 16KiB RAM (DTIM) + 8KiB instruction cache that can be configured into code scratchpad (ITIM)
+- Privelege modes: Machine, User
+- PMP: 8 regions with a minimum region size of 4 bytes.
 
-SiFive_U - sports FU540-C000 SoC
-	Manual: https://static.dev.sifive.com/FU540-C000-v1.0.pdf
+[HiFive Unleashed](https://www.sifive.com/boards/hifive-unleashed) board is based on FU540-C000 System-on-Chip:
+- Manual: https://static.dev.sifive.com/FU540-C000-v1.0.pdf
+- 4 64-bit U54 RISC‐V cores
+- 8 GB DDR4 RAM
+- Sv39 virtual memory, 38-bit physical address space, and a 32-entry TLB.
+- Privelege modes: Machine, Supervisor, User
+- PMP: 8 regions with a minimum region size of 4 bytes.
+- 1 E51 RISC‐V core
+- 8 KiB DTIM + 8KiB instruction cache that can be configured into code scratchpad (ITIM)
+- Privelege modes: Machine, User
+- PMP: 8 regions with a minimum region size of 4 bytes.
 
 Control and Status Registers (CSR)
    Starts with letter describing level of privilege.
