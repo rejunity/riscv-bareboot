@@ -22,17 +22,13 @@ RISC-V Instruction Set Architecture (ISA) is very elegant and easy to learn. One
 
 As of writing there are several physical development boards and virtual environments that sport RISC-V cores. QEMU provides at least two profiles [`sifive_e`](https://github.com/qemu/qemu/blob/master/hw/riscv/sifive_e.c) and [`sifive_u`](https://github.com/qemu/qemu/blob/master/hw/riscv/sifive_u.c) that resemble *HiFive1* and *HiFive Unleashed* development boards respectively.
 
-[HiFive1 revB](https://www.sifive.com/boards/hifive1-rev-b) board is based on FE310-G002 System-on-Chip:
-- Manual: https://sifive.cdn.prismic.io/sifive%2F59a1f74e-d918-41c5-b837-3fe01ba7eaa1_fe310-g002-manual-v19p05.pdf
-- SDK: https://github.com/sifive/freedom-u-sdk
+[HiFive1 revB](https://www.sifive.com/boards/hifive1-rev-b) board is based on [FE310-G002 System-on-Chip](https://sifive.cdn.prismic.io/sifive%2F59a1f74e-d918-41c5-b837-3fe01ba7eaa1_fe310-g002-manual-v19p05.pdf) and supports [Freedom E SDK](https://github.com/sifive/freedom-e-sdk).
 - CPU: 32-bit E31 RISC‐V core
 - RAM: 16 KiB 
 - Physical Memory Protection regions: 8
 - Privelege modes: Machine and User.
 
-[HiFive Unleashed](https://www.sifive.com/boards/hifive-unleashed) board is based on FU540-C000 System-on-Chip:
-- Manual: https://static.dev.sifive.com/FU540-C000-v1.0.pdf
-- SDK: https://github.com/sifive/freedom-e-sdk
+[HiFive Unleashed](https://www.sifive.com/boards/hifive-unleashed) board is based on [FU540-C000 System-on-Chip](https://static.dev.sifive.com/FU540-C000-v1.0.pdf) and supports [Freedom U SDK](https://github.com/sifive/freedom-u-sdk).
 - CPU0: 64-bit E51 RISC‐V core
 - CPU1: 64-bit U54 RISC‐V 4 cores
 - RAM: 8 GB DDR4 + 8KiB available only to E51 core
