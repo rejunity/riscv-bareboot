@@ -27,6 +27,7 @@ As of writing there are several physical development boards and virtual environm
 - RAM: 16 KiB 
 - Physical Memory Protection regions: 8
 - Privelege modes: Machine and User.
+- Hardware definition of the corresponding QEMU target `sifive_e` can be found inside Freedom E SDK: https://github.com/sifive/freedom-e-sdk/tree/master/bsp/qemu-sifive-e31
 
 [HiFive Unleashed](https://www.sifive.com/boards/hifive-unleashed) board is based on [FU540-C000 System-on-Chip](https://static.dev.sifive.com/FU540-C000-v1.0.pdf) and supports [Freedom U SDK](https://github.com/sifive/freedom-u-sdk).
 - CPU0: 64-bit E51 RISC‐V core
@@ -35,6 +36,7 @@ As of writing there are several physical development boards and virtual environm
 - Physical Memory Protection regions: 8
 - Sv39 virtual memory, 38-bit physical address space, and a 32-entry TLB.
 - Privelege modes: Machine, Supervisor and User
+- Hardware definition of the corresponding QEMU target `sifive_u` can be found inside Freedom E SDK: https://github.com/sifive/freedom-e-sdk/tree/master/bsp/qemu-sifive-u54
 
 RISC-V hardware can vastly differ both in terms of number of CPU cores, available RAM, supported privelege modes and how it interacts with peripheral devices. Each System-on-Chip solution will have different set of peripherals and the way they map to memory and interrupts.
 
